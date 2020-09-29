@@ -17,5 +17,6 @@ public class Gegenstand implements Serializable {
     private String name;
     @ManyToOne
     @JoinColumn(name = "fach")
+    @JsonIgnore
     private Fach fach;
 }

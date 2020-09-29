@@ -17,6 +17,5 @@ public class Fach implements Serializable {
     @Column(name = "`name`")
     private String name;
     @OneToMany(mappedBy = "fach")
-    @JsonIgnore
     private List<Gegenstand> gegenstandList;
 }
