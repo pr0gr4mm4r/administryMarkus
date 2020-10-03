@@ -10,5 +10,5 @@ import javax.transaction.Transactional;
 @Service
 public interface GegenstandService {
     String addGegenstand(String gegenstand, String fachId, Integer menge);
-    boolean deleteById(Integer index);
+    boolean deleteById(Integer gegenstandName);
 }

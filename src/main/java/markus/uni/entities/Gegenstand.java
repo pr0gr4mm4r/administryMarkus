@@ -1,10 +1,12 @@
 package markus.uni.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,10 +15,14 @@ public class Gegenstand implements Serializable {
     @GeneratedValue
     @Column(name = "`gegenstandId`")
     private Integer gegenstandId;
-    @Column(name = "`name`")
-    private String name;
+    @Column(name = "`gegenstandName`")
+    private String gegenstandName;
     @ManyToOne
-    @JoinColumn(name = "fach")
+    @JoinColumn(name = "`fach`")
     @JsonIgnore
     private Fach fach;
+    @Column(name = "`ausgeliehen`")
+    private Boolean ausgeliehen;
+    @OneToMany(mappedBy = "gegenstand")
+    private List<AusleihenAbgeben> ausleihenAbgebenGegenstand;
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 @Repository
 public interface FachRepository extends JpaRepository<Fach, Integer> {
-    @Query(value = "select * from fach where name = :fachName" , nativeQuery = true)
+    @Query(value = "select * from fach where fach_name = :fachName" , nativeQuery = true)
     Fach getByFachName(String fachName);
-
 }

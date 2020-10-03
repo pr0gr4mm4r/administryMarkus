@@ -19,19 +19,25 @@ public class GegenstandServiceImpl implements GegenstandService {
 
     @Override
     public String addGegenstand(String gegenstandName, String fachName, Integer menge) {
-        for (int i = 0; i < menge; i++) {
-            Gegenstand gegenstand = new Gegenstand();
-            gegenstand.setName(gegenstandName);
-            gegenstand.setFach(this.fachRepository.getByFachName(fachName));
-            this.gegenstandRepository.save(gegenstand);
+        try {
+            for (int i = 0; i < menge; i++) {
+                Gegenstand gegenstand = new Gegenstand();
+                gegenstand.setGegenstandName(gegenstandName);
+                gegenstand.setFach(this.fachRepository.getByFachName(fachName));
+                this.gegenstandRepository.save(gegenstand);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Ein Fehler ist aufgetreten. Die Gegenstände wurden nicht (korrekt) gespeichert";
         }
-        return "successful save";
+        System.out.println("test");
+        return "Erfolgreiches Speichern";
     }
 
     @Override
-    public boolean deleteById(Integer index) {
+    public boolean deleteById(Integer gegenstandName) {
         try {
-            this.gegenstandRepository.deleteById(index);
+            this.gegenstandRepository.deleteById(gegenstandName);
             return true;
         } catch (Exception e) {
             return false;
