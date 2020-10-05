@@ -73,6 +73,45 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.25</version>
+                <executions>
+                    <execution>
+                        <id>build-windows-executable</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <headerType>console</headerType>
+                    <outfile>${project.build.directory}/${artifactId}.exe</outfile>
+                    <jar>${project.build.directory}/${artifactId}-${project.version}.jar</jar>
+                    <errTitle>${artifactId}</errTitle>
+                    <classPath>
+                        <mainClass>org.springframework.boot.loader.JarLauncher</mainClass>
+                        <addDependencies>false</addDependencies>
+                        <preCp>anything</preCp>
+                    </classPath>
+                    <jre>
+                        <minVersion>1.8.0</minVersion>
+                    </jre>
+                    <versionInfo>
+                        <fileVersion>1.1.1.0</fileVersion>
+                        <txtFileVersion>1.1.1.0</txtFileVersion>
+                        <fileDescription>a cool description</fileDescription>
+                        <copyright>Pragtics 2019</copyright>
+                        <productVersion>1.1.1.0</productVersion>
+                        <txtProductVersion>1.1.1.0</txtProductVersion>
+                        <productName>1.1.1.0</productName>
+                        <internalName>1.1.1.0</internalName>
+                        <originalFilename>${artifactId}.exe</originalFilename>
+                    </versionInfo>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
