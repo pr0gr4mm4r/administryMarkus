@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.util.Optional;
+
 @CrossOrigin
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query(value = "select * from student where student_name = :studentName" +
             " and handy_nummer = :handyNummer" , nativeQuery = true)
-    Student findByStudentNameAndHandyNummer(String studentName, String handyNummer);
+    Optional<Student> findByStudentNameAndHandyNummer(String studentName, String handyNummer);
 }

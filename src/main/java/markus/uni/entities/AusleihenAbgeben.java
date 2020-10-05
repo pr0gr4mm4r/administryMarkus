@@ -1,5 +1,6 @@
 package markus.uni.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -12,8 +13,8 @@ import java.time.LocalDate;
 public class AusleihenAbgeben implements Serializable {
     @Id
     @GeneratedValue
-    @Column(name = "`ausleihenId`")
-    private Integer ausleihenId;
+    @Column(name = "`ausleihenAbgebenId`")
+    private Integer ausleihenAbgebenId;
     @ManyToOne
     @JoinColumn(name = "`studentId`")
     @JsonIgnore

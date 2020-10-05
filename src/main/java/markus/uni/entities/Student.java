@@ -1,5 +1,8 @@
 package markus.uni.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +19,8 @@ public class Student {
     private String studentName;
     @Column(name = "`handyNummer`")
     private String handyNummer;
+    @OneToMany(mappedBy = "student")
+    private List<Gegenstand> gegenstandList;
     @OneToMany(mappedBy = "student")
     private List<AusleihenAbgeben> ausleihenAbgebenStudent;
 }

@@ -17,11 +17,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public String addStudent(Student student) {
-        try {
-            this.studentRepository.save(student);
-        } catch (Exception e) {
-            return "Student bereits persistiert oder ein Fehler";
+        if (this.studentRepository.findByStudentNameAndHandyNummer(
+                student.getStudentName(), student.getHandyNummer()).isPresent()) {
+            Student existingStudent = this.studentRepository.findByStudentNameAndHandyNummer(
+                    student.getStudentName(), student.getHandyNummer()).get();
+            student.setStudentId(existingStudent.getStudentId());
         }
+        this.studentRepository.save(student);
         return "Erfolgreiches Speichern des Studenten";
+    }
+
+    @Override
+    public Student getStudent(String studentName, String handyNummer) {
+        return this.studentRepository.findByStudentNameAndHandyNummer(studentName, handyNummer).get();
     }
 }

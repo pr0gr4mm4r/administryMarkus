@@ -15,6 +15,12 @@ public class StudentController {
     private final StudentService studentService;
     private final AusleihAbgabeService ausleihAbgabeService;
 
+    @GetMapping(value = "/{studentName}/{handyNummer}")
+    public Student get(@PathVariable(value = "studentName") String studentName,
+                       @PathVariable(value = "handyNummer") String handyNummer) {
+        return this.studentService.getStudent(studentName, handyNummer);
+    }
+
     @PostMapping(value = "/add", produces = MediaType.TEXT_PLAIN_VALUE)
     public String add(@RequestBody Student student) {
         return this.studentService.addStudent(student);
