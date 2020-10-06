@@ -40,7 +40,6 @@ CREATE TABLE `ausleihen_abgeben` (
 
 LOCK TABLES `ausleihen_abgeben` WRITE;
 /*!40000 ALTER TABLE `ausleihen_abgeben` DISABLE KEYS */;
-INSERT  IGNORE INTO `ausleihen_abgeben` VALUES (845,'2020-10-05','2020-10-05',600,699),(846,'2020-10-05','2020-10-05',601,699),(847,'2020-10-05','2020-10-05',601,824),(849,'2020-10-05','2020-10-05',442,699),(851,'2020-10-05','2020-10-05',553,850);
 /*!40000 ALTER TABLE `ausleihen_abgeben` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +114,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT  IGNORE INTO `hibernate_sequence` VALUES (852),(852);
+INSERT  IGNORE INTO `hibernate_sequence` VALUES (885),(885);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,8 +129,7 @@ CREATE TABLE `student` (
   `student_id` int NOT NULL,
   `handy_nummer` varchar(255) DEFAULT NULL,
   `student_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`student_id`),
-  UNIQUE KEY `hanynummerstudentname` (`handy_nummer`,`student_name`)
+  PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -141,7 +139,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT  IGNORE INTO `student` VALUES (848,'123','neuer'),(820,'1234','heinz'),(825,'1234','heinz2'),(824,'1234','neuer'),(699,'1234','peter'),(844,'1234','studentFachGegenstandList'),(850,'1234','test'),(733,'12343','peter'),(706,'12345','peter'),(831,'123456','heinz3');
+INSERT  IGNORE INTO `student` VALUES (884,'1234','annika');
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -154,4 +152,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-05 19:04:20
+-- Dump completed on 2020-10-06 23:25:40

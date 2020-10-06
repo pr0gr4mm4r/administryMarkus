@@ -2,9 +2,7 @@ package markus.uni.controller;
 
 import lombok.RequiredArgsConstructor;
 import markus.uni.entities.Fach;
-import markus.uni.entities.Gegenstand;
 import markus.uni.services.fachService.FachService;
-import markus.uni.services.gegenstandService.GegenstandService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
