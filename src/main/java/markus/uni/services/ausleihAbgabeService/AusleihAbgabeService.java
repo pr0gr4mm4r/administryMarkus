@@ -14,6 +14,5 @@ import java.util.List;
 public interface AusleihAbgabeService {
     String gegenstandAusleihen(String studentName, String handyNummer, List<Integer>  gegenstandId);
     String gegenstandAbgeben(String studentName, String handyNummer, List<Integer> gegenstandId);
-
-    AusleihenAbgeben test(Integer id);
+    List<AusleihenAbgeben> getAll();
 }

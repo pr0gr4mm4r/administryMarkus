@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -14,6 +15,11 @@ import javax.transaction.Transactional;
 @CrossOrigin
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
+
+    @Override
+    public List<Student> getAll() {
+        return this.studentRepository.findAll();
+    }
 
     @Override
     public String addStudent(Student student) {

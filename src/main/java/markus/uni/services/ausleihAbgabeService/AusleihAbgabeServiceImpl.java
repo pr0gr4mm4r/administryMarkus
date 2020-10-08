@@ -49,7 +49,7 @@ public class AusleihAbgabeServiceImpl implements AusleihAbgabeService {
 
     private String fillAusleihInformationString(List<Gegenstand> ausleihenAbgeben) {
         String resultString = ausleihenAbgeben.stream().map(
-                gegenstand -> "GId: " + gegenstand.getGegenstandId() +
+                gegenstand -> "GId: " + gegenstand.getGegenstandId() + " | N: " + gegenstand.getGegenstandName() +
                         " | FN: " + gegenstand.getFach().getFachName() + " | "
         ).collect(Collectors.joining());
         resultString = resultString.substring(0, resultString.length() - 3);
@@ -84,7 +84,6 @@ public class AusleihAbgabeServiceImpl implements AusleihAbgabeService {
                 }
             }
         }
-        List<Gegenstand> kompletteAusleihAbgebeGegenstandList = new ArrayList<>();
         String[] strings = currentAusleihenAbgeben.getAusleihInhaltString().split(Pattern.quote(" | "));
         List<String> result = Arrays.asList(strings).stream().filter(
                 string -> string.contains("G")
@@ -105,7 +104,7 @@ public class AusleihAbgabeServiceImpl implements AusleihAbgabeService {
     }
 
     @Override
-    public AusleihenAbgeben test(Integer id) {
-        return this.ausleihenAbgebenRepository.getOne(id);
+    public List<AusleihenAbgeben> getAll() {
+        return this.ausleihenAbgebenRepository.findAll();
     }
 }
