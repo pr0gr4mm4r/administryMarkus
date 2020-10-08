@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Entity
@@ -21,11 +21,11 @@ public class Gegenstand implements Serializable {
     @ManyToOne
     @JoinColumn(name = "`fach`")
     @JsonIgnore
+    @ToString.Exclude
     private Fach fach;
     @Column(name = "`ausgeliehen`")
     private Boolean ausgeliehen;
-    @OneToMany(mappedBy = "gegenstand")
-    private List<AusleihenAbgeben> ausleihenAbgebenGegenstand;
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "`student`")
     @JsonIgnore

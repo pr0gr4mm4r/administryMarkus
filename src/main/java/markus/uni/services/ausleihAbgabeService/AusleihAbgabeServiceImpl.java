@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -24,35 +28,84 @@ public class AusleihAbgabeServiceImpl implements AusleihAbgabeService {
     private final AusleihenAbgebenRepository ausleihenAbgebenRepository;
 
     @Override
-    public String gegenstandAusleihen(String studentName, String handyNummer, Integer gegenstandId) {
+    public String gegenstandAusleihen(String studentName, String handyNummer, List<Integer> gegenstandIdList) {
         Student student = this.studentRepository.findByStudentNameAndHandyNummer(studentName, handyNummer).get();
         AusleihenAbgeben ausleihenAbgeben = new AusleihenAbgeben();
         ausleihenAbgeben.setAusleihDatum(LocalDate.now());
-        Gegenstand gegenstand = this.gegenstandRepository.getOne(gegenstandId);
-        gegenstand.setAusgeliehen(true);
-        ausleihenAbgeben.setGegenstand(gegenstand);
-        gegenstand.setStudent(student);
         ausleihenAbgeben.setStudent(student);
+        List<Gegenstand> gegenstandList = new ArrayList<>();
+        for (int i = 0; i < gegenstandIdList.size(); i++) {
+            Gegenstand gegenstand = this.gegenstandRepository.getOne(gegenstandIdList.get(i));
+            gegenstand.setAusgeliehen(true);
+            gegenstand.setStudent(student);
+            student.getGegenstandList().add(gegenstand);
+            gegenstandList.add(gegenstand);
+        }
+        String ausleihInformation = this.fillAusleihInformationString(gegenstandList);
+        ausleihenAbgeben.setAusleihInhaltString(ausleihInformation);
         this.ausleihenAbgebenRepository.save(ausleihenAbgeben);
         return "success";
     }
 
+    private String fillAusleihInformationString(List<Gegenstand> ausleihenAbgeben) {
+        String resultString = ausleihenAbgeben.stream().map(
+                gegenstand -> "GId: " + gegenstand.getGegenstandId() +
+                        " | FN: " + gegenstand.getFach().getFachName() + " | "
+        ).collect(Collectors.joining());
+        resultString = resultString.substring(0, resultString.length() - 3);
+        return resultString;
+    }
+
     @Override
-    public String gegenstandAbgeben(String studentName, String handyNummer, Integer gegenstandId) {
-        Gegenstand gegenstandFromRepo = this.gegenstandRepository.getOne(gegenstandId);
-        gegenstandFromRepo.setAusgeliehen(false);
-        gegenstandFromRepo.setStudent(null);
+    public String gegenstandAbgeben(String studentName, String handyNummer, List<Integer> gegenstandIdList) {
+        for (int i = 0; i < gegenstandIdList.size(); i++) {
+            Gegenstand gegenstand = this.gegenstandRepository.getOne(gegenstandIdList.get(i));
+            gegenstand.setAusgeliehen(false);
+            gegenstand.setStudent(null);
+            gegenstandRepository.save(gegenstand);
+        }
         Student student = studentRepository.findByStudentNameAndHandyNummer(studentName, handyNummer).get();
-        System.out.println(student.getStudentId() + " " + gegenstandId);
         student.setGegenstandList(
                 student.getGegenstandList().stream().filter(
-                        gegenstand -> !gegenstand.getGegenstandId().equals(gegenstandId)).collect(Collectors.toList())
-        );
-        AusleihenAbgeben ausleihenAbgeben = this.ausleihenAbgebenRepository.findByStudentIdAndGegenstandId(
-                student.getStudentId(), gegenstandFromRepo.getGegenstandId()
-        ).get();
-        ausleihenAbgeben.setAbgabeDatum(LocalDate.now());
-        ausleihenAbgebenRepository.save(ausleihenAbgeben);
+                        gegenstand -> gegenstandIdList.contains(
+                                gegenstand.getGegenstandId()
+                        )).collect(Collectors.toList()));
+        studentRepository.save(student);
+        List<AusleihenAbgeben> ausleihenAbgebenList = student.getAusleihenAbgebenList().stream().filter(
+                ausleihenAbgeben -> ausleihenAbgeben.getKompletteAbgabeDatum() == null
+        ).collect(Collectors.toList());
+        AusleihenAbgeben currentAusleihenAbgeben = new AusleihenAbgeben();
+        for (int i = 0; i < ausleihenAbgebenList.size(); i++) {
+            String ausleihInhaltString = ausleihenAbgebenList.get(i).getAusleihInhaltString();
+            for (int j = 0; j < gegenstandIdList.size(); j++) {
+                Integer gegenstandId = gegenstandIdList.get(j);
+                if (ausleihInhaltString.contains("GId: " + gegenstandId)) {
+                    currentAusleihenAbgeben = ausleihenAbgebenList.get(i);
+                }
+            }
+        }
+        List<Gegenstand> kompletteAusleihAbgebeGegenstandList = new ArrayList<>();
+        String[] strings = currentAusleihenAbgeben.getAusleihInhaltString().split(Pattern.quote(" | "));
+        List<String> result = Arrays.asList(strings).stream().filter(
+                string -> string.contains("G")
+        ).collect(Collectors.toList());
+        List<Integer> integerList = result.stream().map(string -> Integer.valueOf(string.replaceAll("\\D+", ""))).collect(Collectors.toList());
+        boolean setDate = true;
+        for (int i = 0; i < integerList.size(); i++) {
+            Gegenstand gegenstand = this.gegenstandRepository.getOne(integerList.get(i));
+            if (gegenstand.getAusgeliehen()) {
+                setDate = false;
+            }
+        }
+        if (setDate) {
+            currentAusleihenAbgeben.setKompletteAbgabeDatum(LocalDate.now());
+            this.ausleihenAbgebenRepository.save(currentAusleihenAbgeben);
+        }
         return "success";
+    }
+
+    @Override
+    public AusleihenAbgeben test(Integer id) {
+        return this.ausleihenAbgebenRepository.getOne(id);
     }
 }

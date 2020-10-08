@@ -1,8 +1,7 @@
 package markus.uni.entities;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,15 +15,14 @@ public class AusleihenAbgeben implements Serializable {
     @Column(name = "`ausleihenAbgebenId`")
     private Integer ausleihenAbgebenId;
     @ManyToOne
-    @JoinColumn(name = "`studentId`")
+    @JoinColumn(name = "`student`")
     @JsonIgnore
+    @ToString.Exclude
     private Student student;
-    @ManyToOne
-    @JoinColumn(name = "`gegenstandId`")
-    @JsonIgnore
-    private Gegenstand gegenstand;
+    @Column(name = "`ausleihInhaltString`")
+    private String ausleihInhaltString;
     @Column(name = "`ausleihDatum`")
     private LocalDate ausleihDatum;
-    @Column(name = "`abgabeDatum`")
-    private LocalDate abgabeDatum;
+    @Column(name = "`kompletteAbgabeDatum`")
+    private LocalDate kompletteAbgabeDatum;
 }

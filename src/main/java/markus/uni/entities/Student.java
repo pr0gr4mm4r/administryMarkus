@@ -22,5 +22,5 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Gegenstand> gegenstandList;
     @OneToMany(mappedBy = "student")
-    private List<AusleihenAbgeben> ausleihenAbgebenStudent;
+    private List<AusleihenAbgeben> ausleihenAbgebenList;
 }
