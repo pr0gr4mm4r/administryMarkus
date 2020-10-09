@@ -21,4 +21,9 @@ public class FachController {
     public List<Fach> getAll() {
         return this.fachService.getAll();
     }
+
+    @GetMapping(value = "/pool")
+    public Fach getOne() {
+        return this.fachService.getPool();
+    }
 }

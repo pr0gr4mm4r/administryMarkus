@@ -4,6 +4,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -22,7 +23,7 @@ public class AusleihenAbgeben implements Serializable {
     @ManyToMany
     private List<Gegenstand> gegenstandList;
     @Column(name = "`datum`")
-    private LocalDate date;
+    private LocalDateTime datum;
     @Column(name = "`abgeben`")
     private Boolean abgeben;
 }

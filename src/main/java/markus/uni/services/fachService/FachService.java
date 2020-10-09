@@ -13,4 +13,6 @@ import java.util.List;
 public interface FachService {
     List<Fach> getAll();
     String addFach(Fach fach);
+
+    Fach getPool();
 }

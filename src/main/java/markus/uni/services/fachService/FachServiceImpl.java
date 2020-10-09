@@ -24,4 +24,9 @@ public class FachServiceImpl implements FachService {
     public String addFach(Fach fach) {
         return null;
     }
+
+    @Override
+    public Fach getPool() {
+        return this.fachRepository.getOne(180);
+    }
 }

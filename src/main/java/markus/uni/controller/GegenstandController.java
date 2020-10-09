@@ -23,7 +23,6 @@ public class GegenstandController {
     @DeleteMapping(value = "/delete/{gegenstandName}")
     public boolean delete(
             @PathVariable(value = "gegenstandName") Integer gegenstandName) {
-        System.out.println(gegenstandName);
         return this.gegenstandService.deleteById(gegenstandName);
     }
 }

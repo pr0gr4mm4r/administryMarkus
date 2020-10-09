@@ -26,7 +26,7 @@ public class GegenstandServiceImpl implements GegenstandService {
                 gegenstand.setFach(this.fachRepository.getByFachName(fachName));
                 this.gegenstandRepository.save(gegenstand);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "Ein Fehler ist aufgetreten. Die Gegenstände wurden nicht (korrekt) gespeichert";
         }
@@ -35,12 +35,11 @@ public class GegenstandServiceImpl implements GegenstandService {
     }
 
     @Override
-    public boolean deleteById(Integer gegenstandName) {
-        try {
-            this.gegenstandRepository.deleteById(gegenstandName);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public boolean deleteById(Integer gegenstandId) {
+        Gegenstand gegenstand = this.gegenstandRepository.getOne(gegenstandId);
+        gegenstand.setAusgeliehen(false);
+        gegenstand.setStudent(null);
+        gegenstand.setFach(this.fachRepository.getOne(180));
+        return true;
     }
 }
