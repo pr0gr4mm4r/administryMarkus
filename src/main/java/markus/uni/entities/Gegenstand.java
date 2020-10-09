@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -30,4 +31,7 @@ public class Gegenstand implements Serializable {
     @JoinColumn(name = "`student`")
     @JsonIgnore
     private Student student;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "gegenstandList")
+    private List<AusleihenAbgeben> ausleihenAbgebenList;
 }
