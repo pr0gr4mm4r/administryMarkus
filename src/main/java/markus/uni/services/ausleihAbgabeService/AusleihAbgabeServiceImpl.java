@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +41,7 @@ public class AusleihAbgabeServiceImpl implements AusleihAbgabeService {
             gegenstandList.add(gegenstand);
         }
         ausleihenAbgeben.setGegenstandList(gegenstandList);
-        ausleihenAbgeben.setDatum(LocalDateTime.now());
+        ausleihenAbgeben.setDatum(Instant.now().plus(2, ChronoUnit.HOURS));
         ausleihenAbgeben.setFach(gegenstandList.get(0).getFach());
         ausleihenAbgeben.setAbgeben(false);
         this.ausleihenAbgebenRepository.save(ausleihenAbgeben);
@@ -67,7 +69,7 @@ public class AusleihAbgabeServiceImpl implements AusleihAbgabeService {
                         Gegenstand::getGegenstandId).collect(Collectors.toList()).contains(
                                 gegenstand1.getGegenstandId())).collect(Collectors.toList()));
         ausleihenAbgeben.setGegenstandList(gegenstandList);
-        ausleihenAbgeben.setDatum(LocalDateTime.now());
+        ausleihenAbgeben.setDatum(Instant.now().plus(2, ChronoUnit.HOURS));
         ausleihenAbgeben.setFach(gegenstandList.get(0).getFach());
         ausleihenAbgeben.setAbgeben(true);
         this.ausleihenAbgebenRepository.save(ausleihenAbgeben);

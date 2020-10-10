@@ -21,8 +21,8 @@ public class FachServiceImpl implements FachService {
     }
 
     @Override
-    public String addFach(Fach fach) {
-        return null;
+    public Fach addFach(Fach fach) {
+        return this.fachRepository.save(fach);
     }
 
     @Override

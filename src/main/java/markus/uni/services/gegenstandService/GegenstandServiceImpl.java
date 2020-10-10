@@ -30,13 +30,16 @@ public class GegenstandServiceImpl implements GegenstandService {
             e.printStackTrace();
             return "Ein Fehler ist aufgetreten. Die Gegenstände wurden nicht (korrekt) gespeichert";
         }
-        System.out.println("test");
         return "Erfolgreiches Speichern";
     }
 
     @Override
     public boolean deleteById(Integer gegenstandId) {
         Gegenstand gegenstand = this.gegenstandRepository.getOne(gegenstandId);
+        if(gegenstand.getFach().getFachId() == 180){
+            this.gegenstandRepository.deleteById(gegenstandId);
+            return true;
+        }
         gegenstand.setAusgeliehen(false);
         gegenstand.setStudent(null);
         gegenstand.setFach(this.fachRepository.getOne(180));

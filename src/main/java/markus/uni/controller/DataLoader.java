@@ -3,6 +3,7 @@ package markus.uni.controller;
 import lombok.RequiredArgsConstructor;
 import markus.uni.repositories.GegenstandRepository;
 import markus.uni.repositories.FachRepository;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;

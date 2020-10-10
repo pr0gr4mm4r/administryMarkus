@@ -14,7 +14,7 @@ public class Fach implements Serializable {
     @GeneratedValue
     @Column(name = "`fachId`")
     private Integer fachId;
-    @Column(name = "`fachName`")
+    @Column(name = "`fachName`", unique = true)
     private String fachName;
     @OneToMany(mappedBy = "fach")
     private List<Gegenstand> gegenstandList;

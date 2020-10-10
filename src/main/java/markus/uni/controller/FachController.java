@@ -3,10 +3,7 @@ package markus.uni.controller;
 import lombok.RequiredArgsConstructor;
 import markus.uni.entities.Fach;
 import markus.uni.services.fachService.FachService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,10 @@ public class FachController {
     @GetMapping(value = "/pool")
     public Fach getOne() {
         return this.fachService.getPool();
+    }
+
+    @PostMapping(value = "/add")
+    public Fach add(@RequestBody Fach fach) {
+        return this.fachService.addFach(fach);
     }
 }
