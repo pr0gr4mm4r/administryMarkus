@@ -24,6 +24,8 @@ public class Gegenstand implements Serializable {
     @JsonIgnore
     @ToString.Exclude
     private Fach fach;
+    @Column(name = "`category`")
+    private String category;
     @Column(name = "`ausgeliehen`")
     private Boolean ausgeliehen;
     @ToString.Exclude
@@ -34,4 +36,6 @@ public class Gegenstand implements Serializable {
     @JsonIgnore
     @ManyToMany(mappedBy = "gegenstandList")
     private List<AusleihenAbgeben> ausleihenAbgebenList;
+    @Transient
+    private Integer menge;
 }
