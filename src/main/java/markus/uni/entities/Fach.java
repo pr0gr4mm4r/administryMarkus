@@ -18,4 +18,7 @@ public class Fach implements Serializable {
     private String fachName;
     @OneToMany(mappedBy = "fach")
     private List<Gegenstand> gegenstandList;
+    @ManyToOne
+    @JoinColumn(name = "`category`")
+    private Category category;
 }

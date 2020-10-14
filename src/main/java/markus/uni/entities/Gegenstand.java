@@ -24,8 +24,6 @@ public class Gegenstand implements Serializable {
     @JsonIgnore
     @ToString.Exclude
     private Fach fach;
-    @Column(name = "`category`")
-    private String category;
     @Column(name = "`ausgeliehen`")
     private Boolean ausgeliehen;
     @ToString.Exclude

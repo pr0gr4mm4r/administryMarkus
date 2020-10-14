@@ -2,7 +2,6 @@ package markus.uni.controller;
 
 import lombok.RequiredArgsConstructor;
 import markus.uni.entities.AusleihenAbgeben;
-import markus.uni.entities.Student;
 import markus.uni.services.ausleihAbgabeService.AusleihAbgabeService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
