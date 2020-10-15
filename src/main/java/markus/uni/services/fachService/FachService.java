@@ -15,4 +15,7 @@ public interface FachService {
     Fach addFach(Fach fach);
 
     Fach getPool();
+
+    boolean deleteFachByName(String fachName);
+
 }

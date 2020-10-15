@@ -18,9 +18,8 @@ public class AusleihenAbgeben implements Serializable {
     @ManyToOne
     @JoinColumn(name = "`student`")
     private Student student;
-    @ManyToOne
-    @JoinColumn(name = "`fach`")
-    private Fach fach;
+    @JoinColumn(name = "`fachName`")
+    private String fachName;
     @ManyToMany
     private List<Gegenstand> gegenstandList;
     @Column(name = "`datum`")

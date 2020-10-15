@@ -24,8 +24,14 @@ public class FachController {
         return this.fachService.getPool();
     }
 
-    @PostMapping(value = "/add")
+    @PutMapping(value = "/add")
     public Fach add(@RequestBody Fach fach) {
         return this.fachService.addFach(fach);
+    }
+
+    @DeleteMapping(value = "/delete/{fachName}")
+    public boolean delete(@PathVariable(value = "fachName") String fachName) {
+        System.out.println();
+        return this.fachService.deleteFachByName(fachName);
     }
 }

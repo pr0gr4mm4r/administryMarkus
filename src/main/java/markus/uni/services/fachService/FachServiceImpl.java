@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class FachServiceImpl implements FachService {
     private final FachRepository fachRepository;
+
     @Override
     public List<Fach> getAll() {
         return fachRepository.findAll();
@@ -28,5 +29,10 @@ public class FachServiceImpl implements FachService {
     @Override
     public Fach getPool() {
         return this.fachRepository.getOne(180);
+    }
+    @Override
+    public boolean deleteFachByName(String fachName) {
+        this.fachRepository.deleteById(this.fachRepository.getByFachName(fachName).getFachId());
+        return true;
     }
 }

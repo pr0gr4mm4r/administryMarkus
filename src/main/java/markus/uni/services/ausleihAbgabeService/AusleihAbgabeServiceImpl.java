@@ -41,7 +41,7 @@ public class AusleihAbgabeServiceImpl implements AusleihAbgabeService {
         }
         ausleihenAbgeben.setGegenstandList(gegenstandList);
         ausleihenAbgeben.setDatum(Instant.now().plus(2, ChronoUnit.HOURS));
-        ausleihenAbgeben.setFach(gegenstandList.get(0).getFach());
+        ausleihenAbgeben.setFachName(gegenstandList.get(0).getFach().getFachName());
         ausleihenAbgeben.setAbgeben(false);
         this.ausleihenAbgebenRepository.save(ausleihenAbgeben);
         for (int i = 0; i < gegenstandIdList.size(); i++) {
@@ -69,7 +69,7 @@ public class AusleihAbgabeServiceImpl implements AusleihAbgabeService {
                                 gegenstand1.getGegenstandId())).collect(Collectors.toList()));
         ausleihenAbgeben.setGegenstandList(gegenstandList);
         ausleihenAbgeben.setDatum(Instant.now().plus(2, ChronoUnit.HOURS));
-        ausleihenAbgeben.setFach(gegenstandList.get(0).getFach());
+        ausleihenAbgeben.setFachName(gegenstandList.get(0).getFach().getFachName());
         ausleihenAbgeben.setAbgeben(true);
         this.ausleihenAbgebenRepository.save(ausleihenAbgeben);
         for (int i = 0; i < gegenstandIdList.size(); i++) {
