@@ -14,4 +14,6 @@ public interface CategoryService {
     List<Category> getAll();
 
     String setFachsCategory(String fachName, Integer categoryId);
+
+    String createCategory(Category category);
 }

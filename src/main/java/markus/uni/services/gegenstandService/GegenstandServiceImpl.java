@@ -1,6 +1,7 @@
 package markus.uni.services.gegenstandService;
 
 import lombok.AllArgsConstructor;
+import markus.uni.entities.Fach;
 import markus.uni.entities.Gegenstand;
 import markus.uni.repositories.FachRepository;
 import markus.uni.repositories.GegenstandRepository;
@@ -31,6 +32,7 @@ public class GegenstandServiceImpl implements GegenstandService {
                 gegenstand.setGegenstandName(gName);
                 gegenstand.setAusgeliehen(false);
                 gegenstand.setFach(this.fachRepository.getByFachName(fachName));
+                gegenstand.setMvp(false);
                 this.gegenstandRepository.save(gegenstand);
             }
         }
@@ -45,6 +47,21 @@ public class GegenstandServiceImpl implements GegenstandService {
             for (int j = 0; j < anzahlInRepo - gegenstandList.get(i).getMenge(); j++) {
                 this.gegenstandRepository.setFachToPool(currentGegenstandName);
             }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean toMvp(String fachName, String gegenstandName) {
+        Fach fach = this.fachRepository.getByFachName(fachName);
+        for (int i = 0; i < fach.getGegenstandList().size(); i++) {
+            Gegenstand currentGegenstand = fach.getGegenstandList().get(i);
+            if (currentGegenstand.getGegenstandName().equals(gegenstandName)) {
+                currentGegenstand.setMvp(true);
+            } else {
+                currentGegenstand.setMvp(false);
+            }
+            this.fachRepository.save(fach);
         }
         return true;
     }

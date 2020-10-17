@@ -36,4 +36,6 @@ public class Gegenstand implements Serializable {
     private List<AusleihenAbgeben> ausleihenAbgebenList;
     @Transient
     private Integer menge;
+    @Column(name = "`mvp`")
+    private Boolean mvp;
 }

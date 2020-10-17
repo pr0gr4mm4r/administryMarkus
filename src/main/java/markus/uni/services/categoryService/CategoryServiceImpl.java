@@ -40,4 +40,10 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepository.save(category);
         return "";
     }
+
+    @Override
+    public String createCategory(Category category) {
+        this.categoryRepository.save(category);
+        return "success";
+    }
 }

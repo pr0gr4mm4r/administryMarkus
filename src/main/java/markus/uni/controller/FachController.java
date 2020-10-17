@@ -31,7 +31,6 @@ public class FachController {
 
     @DeleteMapping(value = "/delete/{fachName}")
     public boolean delete(@PathVariable(value = "fachName") String fachName) {
-        System.out.println();
         return this.fachService.deleteFachByName(fachName);
     }
 }

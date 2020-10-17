@@ -27,4 +27,10 @@ public class CategoryController {
             @PathVariable(value = "categoryId") Integer categoryId) {
         return this.categoryService.setFachsCategory(fachName, categoryId);
     }
+
+    @PostMapping(value = "/createNewCategory")
+    public String createNewCategory(
+            @RequestBody Category category) {
+        return this.categoryService.createCategory(category);
+    }
 }
