@@ -24,11 +24,17 @@ public class GegenstandController {
     public boolean delete(
             @RequestBody List<Gegenstand> gegenstandList,
             @PathVariable(value = "fachName") String fachName) {
-        return this.gegenstandService.deleteByIds(gegenstandList, fachName);
+        return this.gegenstandService.delete(gegenstandList, fachName);
+    }
+
+    @PutMapping(value = "/deleteFromPool")
+    public boolean deleteFromPool(
+            @RequestBody List<Gegenstand> gegenstandList) {
+        return this.gegenstandService.deleteFromPool(gegenstandList);
     }
 
     @PutMapping(value = "/mvp/{fachName}/{gegenstandName}")
-    public boolean delete(
+    public boolean setMvp(
             @RequestBody List<Object> objectList,
             @PathVariable(value = "fachName") String fachName,
             @PathVariable(value = "gegenstandName") String gegenstandName

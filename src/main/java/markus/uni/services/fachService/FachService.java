@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public interface FachService {
     List<Fach> getAll();
-    Fach addFach(Fach fach);
+    Fach addFach(Fach fach, String categoryName);
 
     Fach getPool();
 

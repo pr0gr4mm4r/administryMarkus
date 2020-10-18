@@ -18,7 +18,6 @@ public class Category implements Serializable {
     @Column(name = "`categoryName`")
     private String categoryName;
     @JsonIgnore
-
     @OneToMany(mappedBy = "category")
     private List<Fach> fachList;
     @Transient

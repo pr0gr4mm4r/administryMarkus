@@ -12,7 +12,9 @@ import java.util.List;
 @Service
 public interface GegenstandService {
     String addGegenstand(List<List<Object>> gegenstand);
-    boolean deleteByIds(List<Gegenstand> gegenstandName, String fachName);
+    boolean delete(List<Gegenstand> gegenstandName, String fachName);
+
+    boolean deleteFromPool(List<Gegenstand> gegenstandList);
 
     boolean toMvp(String fachName, String gegenstandName);
 }

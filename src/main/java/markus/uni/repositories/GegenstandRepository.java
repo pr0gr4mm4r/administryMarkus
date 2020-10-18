@@ -13,8 +13,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Repository
 public interface GegenstandRepository extends JpaRepository<Gegenstand, Integer> {
     @Modifying
-    @Query(value = "update markus_administry.gegenstand set fach = 180 where gegenstand_name = :gegenstandName and fach != 180 limit  1" , nativeQuery = true)
-    void setFachToPool(String gegenstandName);
-    @Query(value = "select count(*) from markus_administry.gegenstand where gegenstand_name = :gegenstandName" , nativeQuery = true)
-    Integer countWithName(String gegenstandName);
+    @Query(value = "update markus_administry.gegenstand set fach = 180 where gegenstand_name = :gegenstandName " +
+            "and fach = :fachId and fach != 180 limit  1" , nativeQuery = true)
+    void setFachToPool(String gegenstandName, Integer fachId);
+    @Query(value = "select count(*) from markus_administry.gegenstand where gegenstand_name = :gegenstandName" +
+            " and fach = :fachId" , nativeQuery = true)
+    Integer countWithName(String gegenstandName, Integer fachId);
+    @Modifying
+    @Query(value = "delete from markus_administry.gegenstand where fach = 180 " +
+            "and gegenstand_name =  :currentGegenstandName limit  1" , nativeQuery = true)
+    void deleteFromPool(String currentGegenstandName);
 }

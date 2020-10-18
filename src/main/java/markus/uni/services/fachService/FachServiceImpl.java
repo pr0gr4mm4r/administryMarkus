@@ -1,7 +1,9 @@
 package markus.uni.services.fachService;
 
 import lombok.AllArgsConstructor;
+import markus.uni.entities.Category;
 import markus.uni.entities.Fach;
+import markus.uni.repositories.CategoryRepository;
 import markus.uni.repositories.FachRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class FachServiceImpl implements FachService {
     private final FachRepository fachRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public List<Fach> getAll() {
@@ -22,7 +25,9 @@ public class FachServiceImpl implements FachService {
     }
 
     @Override
-    public Fach addFach(Fach fach) {
+    public Fach addFach(Fach fach, String categoryName) {
+        Category category = this.categoryRepository.getByCategoryName(categoryName);
+        fach.setCategory(category);
         return this.fachRepository.save(fach);
     }
 
@@ -30,6 +35,7 @@ public class FachServiceImpl implements FachService {
     public Fach getPool() {
         return this.fachRepository.getOne(180);
     }
+
     @Override
     public boolean deleteFachByName(String fachName) {
         this.fachRepository.deleteById(this.fachRepository.getByFachName(fachName).getFachId());

@@ -40,13 +40,23 @@ public class GegenstandServiceImpl implements GegenstandService {
     }
 
     @Override
-    public boolean deleteByIds(List<Gegenstand> gegenstandList, String fachName) {
+    public boolean delete(List<Gegenstand> gegenstandList, String fachName) {
+        Fach fach = this.fachRepository.getByFachName(fachName);
         for (int i = 0; i < gegenstandList.size(); i++) {
             String currentGegenstandName = gegenstandList.get(i).getGegenstandName();
-            Integer anzahlInRepo = this.gegenstandRepository.countWithName(currentGegenstandName);
-            for (int j = 0; j < anzahlInRepo - gegenstandList.get(i).getMenge(); j++) {
-                this.gegenstandRepository.setFachToPool(currentGegenstandName);
+            Integer anzahlInFach = this.gegenstandRepository.countWithName(currentGegenstandName, fach.getFachId());
+            for (int j = 0; j < anzahlInFach - gegenstandList.get(i).getMenge(); j++) {
+                this.gegenstandRepository.setFachToPool(currentGegenstandName, fach.getFachId());
             }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteFromPool(List<Gegenstand> gegenstandList) {
+        for (int i = 0; i < gegenstandList.size(); i++) {
+            String currentGegenstandName = gegenstandList.get(i).getGegenstandName();
+                this.gegenstandRepository.deleteFromPool(currentGegenstandName);
         }
         return true;
     }

@@ -16,7 +16,7 @@ public class Fach implements Serializable {
     private Integer fachId;
     @Column(name = "`fachName`", unique = true)
     private String fachName;
-    @OneToMany(mappedBy = "fach")
+    @OneToMany(mappedBy = "fach", cascade = {CascadeType.ALL})
     private List<Gegenstand> gegenstandList;
     @ManyToOne
     @JoinColumn(name = "`category`")
