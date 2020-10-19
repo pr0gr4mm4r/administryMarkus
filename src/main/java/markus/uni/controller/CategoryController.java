@@ -2,7 +2,6 @@ package markus.uni.controller;
 
 import lombok.RequiredArgsConstructor;
 import markus.uni.entities.Category;
-import markus.uni.entities.Fach;
 import markus.uni.services.categoryService.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
